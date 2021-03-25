@@ -2,6 +2,7 @@ package com.example.study.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @Entity //==table
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -26,7 +28,5 @@ public class User {
     private String updatedBy;
 
 
-    public User() {
 
-    }
 }
