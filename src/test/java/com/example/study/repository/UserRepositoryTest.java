@@ -4,7 +4,9 @@ import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.User;
 
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +23,13 @@ public class UserRepositoryTest extends StudyApplicationTests {
     @Autowired
     private UserRepository userRepository;
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void create() {
         //String sql = insert into user(%s, %s, %d) value(account, email,age);
         User user = new User();
 
-        user.setAccount("TestUser04");
-        user.setEmail("TestUser04@gmail.com");
+        user.setAccount("TestUser03");
+        user.setEmail("TestUser03@gmail.com");
         user.setPhoneNumber("010-1111-3333");
         user.setCreatedAt(LocalDateTime.now());
         user.setCreatedBy("TestUser4");
@@ -36,7 +38,7 @@ public class UserRepositoryTest extends StudyApplicationTests {
         System.out.println("newUser : " + newUser);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void read() {
         Optional<User> user = userRepository.findById(2L);
 
@@ -48,7 +50,7 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     @Transactional
     public void update() {
 
@@ -65,7 +67,7 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     @Transactional
     public void delete() {
         Optional<User> user = userRepository.findById(1L);
