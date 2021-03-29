@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class CategoryRepositoryTest extends StudyApplicationTests {
 
@@ -35,8 +36,18 @@ public class CategoryRepositoryTest extends StudyApplicationTests {
 
 
     }
-
+    @Test
     public void read(){
 
+        String type = "COMPUTER";
+        Optional<Category> optionalCategory = categoryRepository.findByType(type);
+        //select*from category where type='COMPUTER'
+        optionalCategory.ifPresent(c->{
+
+            Assert.assertEquals(c.getType(),type);
+            System.out.println(c.getId());
+            System.out.println(c.getType());
+            System.out.println(c.getTitle());
+        });
     }
 }
