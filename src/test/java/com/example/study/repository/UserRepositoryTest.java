@@ -27,11 +27,11 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     @org.junit.jupiter.api.Test
     public void create() {
-        String account = "Test01";
-        String password="Test01";
+        String account = "Test03";
+        String password="Test03";
         String status="REGISTERED";
         String email="Test01@gmail.com";
-        String phoneNumber="010-1111-2222";
+        String phoneNumber="010-1111-3333";
         LocalDateTime registeredAt=LocalDateTime.now();
         LocalDateTime createdAt=LocalDateTime.now();
         String createdBy = "AdminServer";
@@ -43,8 +43,14 @@ public class UserRepositoryTest extends StudyApplicationTests {
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setRegisteredAt(registeredAt);
-        user.setCreatedAt(createdAt);
-        user.setCreatedBy(createdBy);
+
+        User u = User.builder()
+                .account(account)
+                .password(password)
+                .status(status)
+                .email(email)
+                .build();
+
 
         User newUser = userRepository.save(user);
         Assert.assertNotNull(newUser);
@@ -56,6 +62,15 @@ public class UserRepositoryTest extends StudyApplicationTests {
     public void read() {
 
         User user= userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222");
+
+        /*user
+                .setEmail("")
+                .setPhoneNumber("")
+                .setStatus("");
+
+        User u = new User().setAccount("").setEmail("").setPassword("");*/
+
+
         if(user != null) {
             user.getOrderGroupList().stream().forEach(orderGroup -> {
                 System.out.println("------------------주문묶음----------------");
