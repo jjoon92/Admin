@@ -40,9 +40,12 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
                 .registeredAt(LocalDateTime.now())
                 .build();
 
+
         User newUser = userRepository.save(user);
 
         //3. 생성된 데이터 ->UserApiResponse return
+
+
 
 
         return response(newUser);
