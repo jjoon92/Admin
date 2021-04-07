@@ -14,13 +14,10 @@ import java.time.LocalDateTime;
 import java.util.function.Function;
 
 @Service
-public class ItemApiLogicService extends CrudInterface<ItemApiRequest, ItemApiResponse> {
+public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResponse,Item> {
 
     @Autowired
     private PartnerRepository partnerRepository;
-
-    @Autowired
-    private ItemRepository itemRepository;
 
     @Override
     public Header<ItemApiResponse> create(Header<ItemApiRequest> request) {
@@ -37,14 +34,14 @@ public class ItemApiLogicService extends CrudInterface<ItemApiRequest, ItemApiRe
                 .partner(partnerRepository.getOne(body.getPartnerId()))
                 .build();
 
-        Item newItem = itemRepository.save(item);
+        Item newItem = baseRepository.save(item);
         return response(newItem);
     }
 
     @Override
     public Header<ItemApiResponse> read(Long id) {
 
-        return itemRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(item->response(item))
                 .orElseGet(()-> Header.ERROR("데이터 없음"));
 
@@ -54,7 +51,7 @@ public class ItemApiLogicService extends CrudInterface<ItemApiRequest, ItemApiRe
     public Header<ItemApiResponse> update(Header<ItemApiRequest> request) {
         ItemApiRequest body = request.getData();
 
-        return itemRepository.findById(body.getId())
+        return baseRepository.findById(body.getId())
                 .map(entityItem->{
                     entityItem
                             .setStatus(body.getStatus())
@@ -68,7 +65,7 @@ public class ItemApiLogicService extends CrudInterface<ItemApiRequest, ItemApiRe
                             ;
                     return entityItem;
                 })
-                .map(newEntityItem-> itemRepository.save(newEntityItem))
+                .map(newEntityItem-> baseRepository.save(newEntityItem))
                 .map(item->response(item))
                 .orElseGet(()->Header.ERROR("데이터 없음"));
 
@@ -77,9 +74,9 @@ public class ItemApiLogicService extends CrudInterface<ItemApiRequest, ItemApiRe
     @Override
     public Header delete(Long id) {
 
-        return itemRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(item->{
-                    itemRepository.delete(item);
+                    baseRepository.delete(item);
 
                 return Header.OK();
                 })
