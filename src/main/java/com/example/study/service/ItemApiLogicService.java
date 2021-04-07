@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.function.Function;
 
 @Service
-public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemApiResponse> {
+public class ItemApiLogicService extends CrudInterface<ItemApiRequest, ItemApiResponse> {
 
     @Autowired
     private PartnerRepository partnerRepository;
